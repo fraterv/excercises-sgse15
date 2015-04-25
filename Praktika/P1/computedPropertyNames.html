@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="traceur-compiler/bin/traceur.js"></script>
+    <script type="text/javascript" src="traceur-compiler/src/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+    <title>ComputedProperties, Defaults, Destructuring, Iterators</title>
+  </head>n
+  <body>
+    <script type="module">
+
+class Map {
+    constructor() {
+	this.map = {};
+	this.ks = []; // allow iteration
+    }
+    add_entry(key = "undefined_key", value = "undefined_value") {
+	if (! this.map[key]) { // maps contain unique elements
+	    this.ks.push(key)
+	}
+	this.map[key] = value
+    }
+    print() {
+
+	for (var k in this.map) {
+	    document.write(k + ": " + this.map[k] + "<br>");
+	}
+    }
+    key(index) { return Object.keys(this.map)[index]; }
+    value(key) { return this.map[key]; }
+
+    as_array() {
+	let arr = [];
+	for (var k in this.map) {
+	    arr.push(this.map[k]);
+	}
+	return arr;
+    }
+
+    [Symbol.iterator]() {
+	var index = 0;
+	var current;
+	return {
+	    next: () => {
+		if (index < this.ks.length) {
+		    current = this.ks[index++];
+		    return {
+			value: this.map[current],
+			done: false
+		    };
+		}
+		return {
+		    value: undefined,
+		    done: true
+		}
+	    }
+	}
+    }
+ 
+    *get_next() {
+	let index = 0;
+	while (index < this.ks.length) {
+	    yield index++;
+	}
+    }
+
+    get(id) {
+	return this.map[this.ks[id]]
+    }
+}
+
+var map = new Map();
+map.add_entry("a key", "a string");
+map.add_entry(1, "a number");
+map.add_entry();
+map.add_entry();
+map.print();
+
+document.write(map.key(0) + " is " + map.value(map.key(0)) + "<br>");
+
+var arr = map.as_array();
+document.write(arr + "<br>");
+var [v1, v2, v3, v4] = arr;
+document.write("v1:" + v1 + ", v2:" + v2 + ", v3:" + v3 + ", v4: " + v4 + "<br>");
+
+for (let elt of map) {
+    document.write("From iterator: " + elt + "<br>");
+}
+
+//for (let id = map.get_next(); id; id = map.get_next()) {
+//    document.write(map.get(id));
+//}
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A1 - No Framework</title>
+    <script>
+    // Create Prototype
+    var checkPalindromeProto = Object.create(HTMLButtonElement.prototype);
+
+    var reverse = function(string) {
+	return string.split("").reverse().join("");
+    }
+
+    // Attach function checking for Palindrome and modifying the innerHTML-text
+    checkPalindromeProto.createdCallback = function() {
+	var input = this.innerHTML;
+
+	if (input.length % 2) { // can't be a palindrome
+
+	    this.innerHTML = input + " is not a Palindrome: " + reverse(input)
+
+	    return;
+	}
+
+	var is_a_palindrome = true;
+
+	for (var i = 0; i < (input.length / 2); i++) {
+	    if (input[i].toLowerCase() !=
+		input[input.length - 1 - i].toLowerCase()) {
+		is_a_palindrome = false;
+	    }
+	}
+	if (is_a_palindrome) {
+	    this.innerHTML = input + " is a Palindrome: " + reverse(input);
+	}
+	else {
+	    this.innerHTML = input + " is not a Palindrome: " + reverse(input);
+	}
+    };
+
+    var CheckPalindrome = document.registerElement('x-foo', {
+	prototype: checkPalindromeProto,
+	extends: 'p'
+    });
+
+    </script>
+  </head>
+  <body>
+    <p is="x-foo">Lagerregal</p>
+    <p is="x-foo">lagerregal</p>
+    <p is="x-foo">ikearegal</p>
+  </body>
+</html>

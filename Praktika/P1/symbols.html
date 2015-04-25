@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="traceur-compiler/bin/traceur.js"></script>
+    <script type="text/javascript" src="traceur-compiler/src/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+    <title>Arrows</title>
+  </head>
+  <body>
+    <script type="module">
+
+var o = (function(){
+    var x = Symbol();
+    var y = Symbol();
+    document.write("Symbol() == Symbol()? -> " + (x == y) + "<br>");
+    x = Symbol("a");
+    y = Symbol("a");
+    document.write("Symbol('a') == Symbol('a')? -> " + (x == y) + "<br>");
+    return {
+	[x]: 42,
+	getX: function(){
+	    return this[x];
+	}
+    };
+})();
+
+// Printing all properties; x unavailable
+for (var p in o) {
+    document.write(o[p] + "<br>");
+}
+
+// Bound in o though
+document.write(o.getX());
+
+    </script>
+  </body>
+</html>

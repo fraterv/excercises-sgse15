@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="traceur-compiler/bin/traceur.js"></script>
+    <script type="text/javascript" src="traceur-compiler/src/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+    <title>Numerics, Property method assignment, Initializer Shorthand, Rest, Spread, Template Strings, Promises</title>
+  </head>
+  <body>
+    <script type="module">
+
+var numerical = {
+    binary : [
+	0b0, 0b1, 0b10, 0b11, 0b100
+    ],
+    hex : [
+	0x0, 0x1, 0x2, 0x3, 0x4
+    ],
+    oct : [
+	0o0, 0o1, 0o2, 0o3, 0o4
+    ],
+
+    from_oct(number) {
+	return this.oct[number];
+    },
+    from_hex(number) {
+	return this.oct[number];
+    },
+    from_bin(number) {
+	return this.oct[number];
+    }
+};
+
+function as_string(object) {
+    let s = "";
+    for (var o in object) {
+	s += (o + ": " + object[o] + "<br>");
+    }
+    return s;
+}
+
+function print_nth(n, ...arrays) {
+    arrays.forEach(function(array) {
+	document.write(array[n]);
+    });
+}
+
+let output = as_string({bin: [numerical['binary']],
+		    hex: [numerical['hex']],
+		    oct: [numerical['oct']]});
+
+function timeout(ms) {
+  return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+  });
+}
+
+let writer =
+    [() => {document.write("From Oct: " + numerical.from_oct(2) + "<br>")},
+     () => {document.write("From Hex: " + numerical.from_hex(2) + "<br>")},
+     () => {document.write("From Bin: " + numerical.from_bin(2) + "<br>")},
+     () => {document.write(`Collected: <br>${output}`)},
+     () => {print_nth(2, numerical['binary'], numerical['hex'], numerical['oct'])},
+     () => {document.write("<br>")},
+     () => {print_nth(2, [...numerical['binary'], ...numerical['hex'], ...numerical['oct']])}];
+
+
+for (let i = 0; i < writer.length; ++i) {
+    timeout(500 * i).then(() => {
+	writer[i]();
+    });
+}
+
+
+    </script>
+  </body>
+</html>

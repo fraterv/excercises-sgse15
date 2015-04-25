@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="traceur-compiler/bin/traceur.js"></script>
+    <script type="text/javascript" src="traceur-compiler/src/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+    <title>Classes</title>
+  </head>
+  <body>
+    <script type="module">
+
+class Base {
+    constructor(value) {
+	this.value = value;
+    }
+    print_value() {
+	document.write("Value from baseclass: " + this.value + "<br>")
+    }
+}
+class Derived extends Base {
+    constructor(value, name) {
+	super(value);
+	this.name = name;
+    }
+    print_name() {
+	document.write("Name from derived: " + this.name + "<br>");
+    }
+    print() {
+	super.print_value();
+	this.print_name();
+    }
+}
+
+var derived = new Derived(10, "Stan");
+derived.print();
+document.write("Name from outer scope: " + derived.name);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<polymer-element name="check-palindrom">
+  <template>
+    Input a word and I'll check if it's a Palindrom.<br>
+    The current input {{is_palindrom}}, reversed it is: {{reversed}}<br>
+
+    <input id="textInput" value="{{palindrom}}"
+           placeholder="Enter Palindrom..."></p>
+
+  </template>
+   <script>
+
+    var reverse = function(string) {
+	return string.split("").reverse().join("");
+    }
+
+    Polymer({
+        palindrom: "Lagerregal",
+	reversed: "lagerregaL",
+	is_palindrom: "is a palindrom",
+        palindromChanged: function() {
+	    this.reversed = "";
+	    this.is_palindrom = "is not a Palindrom";
+            if (this.palindrom) {
+                pal = this.palindrom;
+                this.reversed = reverse(this.palindrom);
+                if (pal.length % 2) { // can't be a palindrome
+                    this.is_palindrom = "is not a Palindrom";
+                }
+
+                var is_a_palindrome = true;
+                for (var i = 0; i < (pal.length / 2); i++) {
+                    if (pal[i].toLowerCase() !=
+                        pal[pal.length - 1 - i].toLowerCase()) {
+                        is_a_palindrome = false;
+                    }
+                }
+                if (is_a_palindrome) {
+                    this.is_palindrom = "is a Palindrom";
+                }
+                else {
+                    this.is_palindrom = "is not a Palindrom";
+                }
+
+            }
+        }
+    });
+  </script>
+</polymer-element>

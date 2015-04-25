@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="traceur-compiler/bin/traceur.js"></script>
+    <script type="text/javascript" src="traceur-compiler/src/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+    <title>Arrows</title>
+  </head>
+  <body>
+    <script type="module">
+
+var makeUser = (forname, bday) => {
+    return {
+	getName: function() { return forname; },
+	birthday: function() { return bday; }
+    };
+};
+
+var u = makeUser("Ben", "today");
+
+function timeout(ms) {
+  return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+  });
+}
+
+//async 
+function getUIValues() {
+    // e.g. accessing data from a database
+    //await timeout(500);
+    let name = u.getName();
+    //await timeout(500);
+    let birthday = u.birthday();
+    return [name, birthday];
+}
+
+// preparing the data in the background
+//(async
+(function() {
+    //let values = await getUIValues();
+    let values = getUIValues();
+    document.write("Got " + values[0] + " and " + values[1]);
+})();
+
+// building the page
+for (let i = 0; i < 10; ++i) {
+    //await timeout(100);
+    document.write("Preparing the page");
+}
+
+
+
+    </script>
+  </body>
+</html>
