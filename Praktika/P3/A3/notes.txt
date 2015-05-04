@@ -1,0 +1,34 @@
+* Installation
+
+  $ npm install -g mocha
+
+* Ausfuehren:
+  - Dem Standard entsprechend werden die Tests in test.js definiert
+  - Dann reicht ein Aufruf 'mocha' im gleichen Verzeichnis
+
+* References
+  http://mochajs.org/
+  https://nodejs.org/api/assert.html
+
+* Infos zusammengefasst von der mocha-Seite:
+  - Tests koennen verschiedene js-assertion-Module verwenden. Wir
+    haben den Standard 'assert' verwendet
+  - Tests koennen auch asynchron ausgefuehrt werden. Wir machen nur
+    synchrone Tests.
+  - Asynchronen Tests wuerde man einen Callback mitgeben
+  - Es gibt Hooks, beforeEach, afterEach oder before/after(some
+    Tests), so das man definierte Funktionen nach oder vor jedem oder
+    bestimmten Tests ausfuehren lassen kann
+
+* Zu unserer Loesung:
+  - Definiert in test.js
+  - Testcases definiert in den beiden describe-Bloecken
+  - Der erste testet RGBToHex, der zweite HexToRGB.
+  - Beide nutzen das assert-modul, hexToRGB ist in einer
+    mocha-spezifischen verkuerzten Syntax geschrieben (der
+    for-each-Kram). Das Original, wie im ersten Block, ist darunter
+    auskommentiert
+  - Wir benutzen drei verschiedene assert-Funktionen:
+    - equal: Testet einfach auf Gleichheit
+    - deepEqual: Testet komplexere Objekte auf Gleichheit (Arrays z.B.)
+    - throws: Testet ob eine Funktion eine Exception wirft.
