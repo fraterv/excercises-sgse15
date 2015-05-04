@@ -1,0 +1,13 @@
+#Ubuntu 14.04 Pakete
+sudo apt-get install npm nodejs-legacy
+
+#Yeoman http://yeoman.io/
+sudo npm install -g yo
+sudo npm install -g grunt-cli
+
+#Reveal.js generator
+sudo anpm install -g generator-reveal
+sudo npm install bower -g
+
+Dann folge den Anleitungen im README.md von Reveal.js:
+https://github.com/slara/generator-reveal
