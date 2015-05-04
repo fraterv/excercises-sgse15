@@ -1,0 +1,47 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<polymer-element name="longlat-element">
+    <template>
+        <div id="output">{{langitude}},{{latitude}}</div>
+    </template>
+    <script type="text/javascript">
+        function langAndLatitudeCallback(lat, lng) {
+            document.getElementById("output").textContent = this.city + " is located at " + lat + "," + lng;
+        }
+
+        Polymer({
+            city: "",
+            api: "http://maps.googleapis.com/maps/api/geocode/json",//search?q=hütte&amp",
+            ready: function() {
+                this.city = this.innerHTML;
+                if (1) {
+                    //$.get(this.api, {address: this.city}, langAndLatitudeCallback);
+                    $.ajax({
+                        url: this.api,
+                        data: {
+                            "address": this.city
+                        },
+                        type: "GET",
+                        success: function (result) {
+                            loc = result["results"][0]["geometry"]["location"];
+                            lat = loc["lat"];
+                            lng = loc["lng"];
+                            alert(this.city + " is located at " + lat + "," + lng);
+                            langAndLatitudeCallback(lat, lng);
+                        },
+                        error: function(err) {
+                            alert("Error: " + err);
+                        }
+                    })
+                    //jQuery.getJSON(this.api_url, {}, openThesaurusCallback);
+                }
+            }
+        });
+    </script>
+
+<!---    <script type="text/javascript"
+ src="https://www.openthesaurus.de/synonyme/search?q=hütte&amp;format=application/json&amp;callback=myCallback">
+    </script> --->
+
+
+
+</polymer-element>

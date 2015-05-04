@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--    <script src="../jquery-1.11.2.min.js"></script> -->
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="synonym-list.html">
     <title>A3 - REST-API</title>
   </head>
   <body>
-    TODO
+  <core-ajax url="http://www.openthesaurus.de/synonyme/search" auto
+             params='{"q":"Hut"}' handleAs="json"></core-ajax>
+  <synonym-list></synonym-list>
   </body>
 </html>

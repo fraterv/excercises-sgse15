@@ -11,13 +11,13 @@
    <script>
 
     var reverse = function(string) {
-	return string.split("").reverse().join("");
+        return string.split("").reverse().join("");
     }
 
     Polymer({
         palindrom: "Lagerregal",
-	reversed: "lagerregaL",
-	is_palindrom: "is a palindrom",
+        reversed: "lagerregaL",
+        is_palindrom: "is a palindrom",
         palindromChanged: function() {
 	    this.reversed = "";
 	    this.is_palindrom = "is not a Palindrom";

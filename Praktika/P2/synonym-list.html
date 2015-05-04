@@ -1,0 +1,64 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<polymer-element name="synonym-list" attributes="word">
+    <template>
+        <div id="output">Text</div>
+
+    </template>
+    <script type="text/javascript">
+        // Maybe like this? https://www.polymer-project.org/0.5/platform/custom-elements.html
+        var ajax = document.querySelector('core-ajax');
+        ajax.addEventListener('core-response', function(e) {
+            alert(e);
+            alert(this.response);
+        });
+
+
+        // Or like this?
+        function openThesaurusCallback(result) {
+            //alert(result);
+            var synonyms = "";
+            for (var synsetCount = 0; synsetCount < result.synsets.length; synsetCount++) {
+                for (var termCount = 0; termCount < result.synsets[synsetCount].terms.length; termCount++) {
+                    var termObj = result.synsets[synsetCount].terms[termCount];
+                    synonyms += termObj.term
+                    if (termObj.level) {
+                        synonyms += " (" + termObj.level + ")";
+                    }
+                    synonyms += ", "
+                }
+                synonyms += "<br/><br/>";
+            }
+            document.write(synonyms);
+        }
+
+        Polymer({
+            output: "nothing",
+            word: "something",
+            api_url: "http://www.openthesaurus.de/synonyme/search",//search?q=hütte&amp",
+            ready: function() {
+                this.$.output.innerHTML = this.word;
+                if (1) {
+                    this.$.output.textContent = this.word;
+                    $.ajax({
+                        type: "GET",
+                        url: this.api_url,
+                        data: {
+                            q: "Huette"
+                        },
+                        dataType: "jsonp",
+                        success: openThesaurusCallback
+                    });
+                    //jQuery.getJSON(this.api_url, {}, openThesaurusCallback);
+                }
+
+            }
+        });
+    </script>
+
+<!---    <script type="text/javascript"
+ src="https://www.openthesaurus.de/synonyme/search?q=hütte&amp;format=application/json&amp;callback=myCallback">
+    </script> --->
+
+
+
+</polymer-element>
