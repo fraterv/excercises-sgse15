@@ -1,0 +1,31 @@
+Getting Started
+1. Install gulp globally:
+
+$ sudo npm install --global gulp
+
+2. Install gulp in your project devDependencies:
+   + alle Plugins die benötigt werden
+
+sudo npm install --save-dev gulp
+sudo npm install --save-dev gulp-imagemin
+sudo npm install --save-dev gulp-minify-html
+sudo npm install --save-dev gulp-jshint
+sudo npm install --save-dev gulp-uglify
+sudo npm install --save-dev gulp-concat
+sudo npm install --save-dev gulp-babel
+sudo npm install --save-dev gulp-sass
+sudo npm install --save-dev gulp-autoprefixer
+sudo npm install --save-dev gulp-header
+
+3. Create a gulpfile.js at the root of your project:
+
+var gulp = require('gulp');
+
+gulp.task('default', function() {
+  // place code for your default task here
+});
+
+4. Run gulp:
+
+$ gulp
+

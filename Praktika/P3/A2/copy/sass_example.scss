@@ -1,0 +1,24 @@
+#page {
+  /* Code */
+  .wrapper {
+    /* Code */
+    .list {
+      /* Code */
+      .item {
+        /* Code */
+        a {
+          color: #CCCCCC;
+          text-decoration: none;
+          font: {
+            weight: bold;
+            size: 20px;
+          }
+          &:hover {
+            color: #888888; 
+          }
+        }
+      }
+    }
+  }
+}
+
