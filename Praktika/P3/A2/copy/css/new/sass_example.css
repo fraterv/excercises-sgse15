@@ -1,0 +1,15 @@
+#page {
+  /* Code */ }
+  #page .wrapper {
+    /* Code */ }
+    #page .wrapper .list {
+      /* Code */ }
+      #page .wrapper .list .item {
+        /* Code */ }
+        #page .wrapper .list .item a {
+          color: #CCCCCC;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 20px; }
+          #page .wrapper .list .item a:hover {
+            color: #888888; }
