@@ -1,3 +1,13 @@
 ###HTML5 Boilerplate
 
-Hier kommt jetzt normaler Text
+https://html5boilerplate.com/<br>
+http://www.sitepoint.com/introduction-html5-boilerplate/
+
+* liefert Verzeichnisstruktur und Codebasis
+* Frontend Template
+* Styles für diverse Browser
+* Dokumentation für:
+    * HTML
+    * CSS
+    * JavaScript
+    * ...

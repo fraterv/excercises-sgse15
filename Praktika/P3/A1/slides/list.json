@@ -13,8 +13,7 @@
         "impl/sass.md",
         "impl/less.md",
         "impl/stylus.md",
-        "impl/transpiler.md",
-	"impl/code_quali.md"
+        "impl/transpiler.md"
     ],
     [
         "test.md",
