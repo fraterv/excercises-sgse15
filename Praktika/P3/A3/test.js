@@ -2,7 +2,7 @@ var assert = require("assert");
 var Converter = require("./converter").Converter;
 var c = new Converter();
 
-//console.log(c.hexToRgb('-010000'));
+console.log(c.hexToRgb('zzzzzz'));
 
 describe('RGBToHex', function() {
     it('should return ffffff for (255, 255, 255)', function() {
@@ -51,6 +51,7 @@ describe('Hex2RGB', function() {
     ok.forEach(function(test) {
         it('converts ' + test.input + ' to ' + test.expected, function() {
             assert.deepEqual(c.hexToRgb(test.input), test.expected);
+
         })
     });
 });
