@@ -1,4 +1,4 @@
 ###Uglify
 
 * JavaScript compressor
-* Macht hässlichen Code
+* erzeugt "hässlichen" Code
