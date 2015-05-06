@@ -1,15 +1,32 @@
 [
     "index.md",
+    "uebersicht.md",
     [
-	"slide0.html",
-	"slide1.html",
-	"slide3.html"
+	"projektstart.md",
+	"projekt/html5-boilerplate.md",
+        "projekt/npm.md",
+        "projekt/bower.md",
+        "projekt/jspm.md"
     ],
-    {
-        "filename": "slide-title.html",
-        "attr": {
-            "data-background": "#ff0000"
-        }
-    },
-    "slide-title.md"
+    [
+        "implementierung.md",
+        "impl/sass.md",
+        "impl/less.md",
+        "impl/stylus.md",
+        "impl/transpiler.md"
+    ],
+    [
+        "test.md",
+        "test/jasmine.md",
+        "test/mocha.md",
+        "test/karma.md"
+    ],
+    [
+        "deployment.md",
+        "deploy/uglify.md",
+        "deploy/grunt.md",
+        "deploy/gulp.md",
+        "deploy/yo.md"
+    ],
+    "ende.md"
 ]
