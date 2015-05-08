@@ -6,7 +6,8 @@
 	"projekt/html5-boilerplate.md",
         "projekt/npm.md",
         "projekt/bower.md",
-        "projekt/jspm.md"
+        "projekt/jspm.md",
+        "projekt/yo.md"
     ],
     [
         "implementierung.md",
@@ -25,8 +26,7 @@
         "deployment.md",
         "deploy/uglify.md",
         "deploy/grunt.md",
-        "deploy/gulp.md",
-        "deploy/yo.md"
+        "deploy/gulp.md"
     ],
     "ende.md"
 ]

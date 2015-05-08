@@ -1,5 +1,0 @@
-###Yo
-
-Yeoman?
-
-Generator Ecosystem
