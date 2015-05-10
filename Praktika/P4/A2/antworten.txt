@@ -1,0 +1,30 @@
+P4.A2
+
+1. Wie lauten die eindeutigen Namen der „Folder“ der E-Mails?
+
+db.mails.find({},{folder:1})
+
+Antwort: _sent, all_documents
+
+
+2. Wieviel E-Mails wurden mit der Adresse “rosalee.fleming@enron.com“ gesendet?
+
+db.mails.find({sender: "rosalee.fleming@enron.com"}).count()
+
+Antwort: 849
+
+
+3. Was ist die E-Mail mit der höchsten Anzahl an Rezipienten und was ist der Nachrichtentext
+der E-Mail?
+
+4. Wieviel E-Mails enthalten genau einen Sender und genau einen Rezipienten?
+
+5. Wieviel E-Mails wurde im Jahr 2001 versendet?
+
+Muss noch angepasst werden:
+
+# For-Each, das eine neues ISODate Feld in jedes Dokument einfügt
+db.messages.find().forEach(function(doc) { doc.headers.datestamp = new Date(Date.parse(doc.headers.Date.toString())); db.messages.save(doc); })
+
+
+db.messages.find({ "headers.datestamp": {"$gte" : new Date("2000-01-01T00:00:00.000Z"), "$lt" : new Date("2001-01-01T00:00:00.000Z")}}).count()
