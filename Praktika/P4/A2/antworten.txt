@@ -18,7 +18,7 @@ Antwort: 849
 der E-Mail?
 
 http://docs.mongodb.org/manual/reference/operator/aggregation/size/
-db.mails.aggregate( [ { $project : { item: 1, numberOfRecipients: { $size: "$recipients" } } }, {$sort: {numberOfRecipients : -1}} ] )
+db.mails.aggregate( [ { $project : {numberOfRecipients: { $size: "$recipients" } } }, {$sort: {numberOfRecipients : -1}} ] )
 
 Antwort: { "_id" : ObjectId("554fa82fc6122ed6fb2e8cb2"), "numberOfRecipients" : 882 }
 
