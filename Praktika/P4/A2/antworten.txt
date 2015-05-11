@@ -17,6 +17,15 @@ Antwort: 849
 3. Was ist die E-Mail mit der höchsten Anzahl an Rezipienten und was ist der Nachrichtentext
 der E-Mail?
 
+http://docs.mongodb.org/manual/reference/operator/aggregation/size/
+db.mails.aggregate( [ { $project : { item: 1, numberOfRecipients: { $size: "$recipients" } } }, {$sort: {numberOfRecipients : -1}} ] )
+
+Antwort: { "_id" : ObjectId("554fa82fc6122ed6fb2e8cb2"), "numberOfRecipients" : 882 }
+
+> db.mails.find({"_id" : ObjectId("554fa82fc6122ed6fb2e8cb2")},{text:1})
+{ "_id" : ObjectId("554fa82fc6122ed6fb2e8cb2"), "text" : " \n\nTo:\tAssociate/Analyst Program Worldwide\t\t\t\n\t\t\t\t\nFrom:\tKen Lay\tDepartment:\tOffice of the Chairman\t\n\t\t\t\t\nSubject:\tAssociate/Analyst Program\tDate:\tAugust 22, 2001\t\n\nAs most of you know, Jeff Skilling created the Associate/Analyst Program in 1990.  This Program is one of his most successful and important contributions to Enron, and will continue as a cornerstone of the Company.  It remains our single most important source of new talent.\n\nThe purpose of this memo is to reassure you that the direction, philosophy, and importance of the Program remains unchanged.  As we have said many times, most of our new businesses were created by graduates and members of the Program.  Many of the current leaders of our company are also graduates of the Program.\n\nThree broad principles will continue to guide the direction of the Program.\n?\tWe will have only one Associate/Analyst Program at Enron, and it is a Company asset.\n?\tWe will have a \"One Enron\" presence on campus to provide clarity of message and purpose.\n?\tThe Program is rotational in nature, and will prepare our future leaders for success by providing exposure to Enron's network of people and systems.\n\nThe business prospects for Enron, and the opportunities for personal growth and development have never been better.  We also enjoy the deepest and broadest talent pool we have ever had.  Each and every one of you can be a key contributor to making Enron the World's Leading Company.\n\n\ncc:\nBilly Lemmons - Associate/Analyst Program\nJohn Sherriff - Associate/Analyst Committee Chair\nManagement Committee\nAssociate/Analyst Committee\nAssociate/Analyst Department\nHuman Resources Leads\nProgram PRC Reps\nProgram Supervisors\n\n\n<Embedded Picture (Metafile)>" }
+
+
 4. Wieviel E-Mails enthalten genau einen Sender und genau einen Rezipienten?
 
 5. Wieviel E-Mails wurde im Jahr 2001 versendet?

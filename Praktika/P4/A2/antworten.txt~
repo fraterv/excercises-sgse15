@@ -16,3 +16,19 @@ Antwort: 849
 
 3. Was ist die E-Mail mit der höchsten Anzahl an Rezipienten und was ist der Nachrichtentext
 der E-Mail?
+
+http://docs.mongodb.org/manual/reference/operator/aggregation/size/
+db.mails.aggregate( [ { $project : { item: 1, numberOfRecipients: { $size: "$recipients" } } } ] )
+
+
+4. Wieviel E-Mails enthalten genau einen Sender und genau einen Rezipienten?
+
+5. Wieviel E-Mails wurde im Jahr 2001 versendet?
+
+Muss noch angepasst werden:
+
+# For-Each, das eine neues ISODate Feld in jedes Dokument einfügt
+db.messages.find().forEach(function(doc) { doc.headers.datestamp = new Date(Date.parse(doc.headers.Date.toString())); db.messages.save(doc); })
+
+
+db.messages.find({ "headers.datestamp": {"$gte" : new Date("2000-01-01T00:00:00.000Z"), "$lt" : new Date("2001-01-01T00:00:00.000Z")}}).count()
