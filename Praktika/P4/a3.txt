@@ -27,7 +27,29 @@ var reduce = function(key, values) {
     return recipients;
 }
 
+// Don't know how to sort...
 // run like this:
 // db.output.drop()
 // db.runCommand({mapReduce: "mails", map: map, reduce: reduce, out: "output", query: {}})
+// or
+// db.mails.mapReduce(map, reduce, { query: {}, out : "output" })
 // db.output.find()
+
+// Here's a way to sort! But the result is not a collection now...
+
+var sortIt = function(obj1, obj2) {
+    var getMax = function(obj) {
+        var max = null;
+	for (var p in obj) {
+	    if (!max || obj[p] > obj[max]) {
+	       max = p;
+            }
+        }
+        return obj[max];
+    }
+    return getMax(obj1["value"]) < getMax(obj2["value"])? -1 : 1;
+}
+
+// Use it like this:
+// var result = db.mails.mapReduce(map, reduce, { query: {}, out : { inline : 1 }})
+// result.result.sort(sortIt)
