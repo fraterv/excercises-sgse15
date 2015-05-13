@@ -52,4 +52,4 @@ var sortIt = function(obj1, obj2) {
 
 // Use it like this:
 // var result = db.mails.mapReduce(map, reduce, { query: {}, out : { inline : 1 }})
-// result.result.sort(sortIt)
+// result.results.sort(sortIt)
