@@ -1,3 +1,37 @@
+// 1: Preferred solution, but does not work because the generated key
+// gets too long (there is a mail with 800 recipients)
+var map = function() {
+    var rec = "";
+    for (var i = 0; i < this.recipients.length; i++) {
+	rec += this.recipients[i]; // create a string representation of all recipients
+    }
+    var uk = this.sender + rec; // unique key: sender + all recipients
+    emit (uk, 1);
+}
+
+
+// 2: accepted solution though not quite correct because we split mails to several
+// recipients and not count them as one.
+var map = function() {
+    var rec = "";
+    for (var i = 0; i < this.recipients.length; i++) {
+	emit (this.sender + " to " + this.recipients[i], 1);
+    }
+}
+
+// reduce for the accepted solution. Much easier than in the workaround below, but
+// actually incorrect.
+var reduce = function(key, values) {
+    return Array.sum(values);
+}
+
+// Usage of accepted solution:
+// db.output.drop()
+// db.mails.mapReduce(map, reduce, { query: {}, out : "output" })
+// db.output.find().sort({"value" : - 1})
+
+// 3: Original, but workaround because of issue with long keys described above
+
 var map = function() {
     emit (this.sender, this.recipients);
 }
@@ -12,15 +46,16 @@ var map = function() {
 
 var reduce = function(key, values) {
     var recipients = {};
+
     values.forEach (function(recipient) {
-        if (!recipient.length) { // mass mail?
-	   recipient = "BROADCAST";
+        if (!recipient.length) { // mass mail? Some recipients are '[]'
+            recipient = "BROADCAST";
         }
         if (!recipients[recipient]) {
-	   recipients[recipient] = 1;
+            recipients[recipient] = 1;
         }
 	else {
-           recipients[recipient] += 1;
+            recipients[recipient] += 1;
         }
     });
 

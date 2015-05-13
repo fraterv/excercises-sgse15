@@ -1,0 +1,15 @@
+var map = function() {
+    emit (this.sender, this.recipient);
+}
+
+// Map above creates a document for each sender, e.g.
+// { "Rosalie@enron" : [ recipient-list1, recipient-list2, ...] }
+// where each recipient-list is either an array of recipients
+
+// reduce is then called for every unique sender,
+// *which has more then one entry in the list* (todo)
+// (see http://docs.mongodb.org/manual/reference/command/mapReduce/#mapreduce-map-cmd)
+
+var reduce = function(key, values) {
+    
+}

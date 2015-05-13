@@ -60,7 +60,7 @@ db.mails.aggregate( {"$project" :
                     },
                     {"$match" : {rec : 1}},
                     {"$group" : { _id : null, total: { $sum : 1}}})
-
+		    
 5. Wieviel E-Mails wurde im Jahr 2001 versendet?
 
 db.mails.count({date : /^2001/})
