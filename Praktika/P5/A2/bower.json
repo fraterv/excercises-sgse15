@@ -1,0 +1,20 @@
+{
+  "name": "A2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/fraterv/excercises-sgse15",
+  "authors": [
+    "Philipp Kroos <philipp.kroos@fh-bielefeld.de>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5"
+  }
+}
