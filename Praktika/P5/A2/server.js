@@ -25,9 +25,8 @@ var server = http.createServer(function (req, res) {
                {"city" : pathname.substr(pathname.lastIndexOf("/") + 1)},
                function(result) {
                  res.writeHead(200, {"Content-Type" : "application/json"});
-                 var data = {'index' : 0, 'selected' : false}
-                 data['model'] = result[0]
-                 res.end(JSON.stringify(data));
+                 var data = [{'index' : 0, 'selected' : false, 'city' : "Test"}]
+                 res.end(JSON.stringify(result));
                });
   }
   else if (/^\/close/.test(pathname)) {

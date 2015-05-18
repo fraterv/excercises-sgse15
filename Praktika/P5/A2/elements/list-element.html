@@ -2,18 +2,39 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-list/core-list.html">
 
-<polymer-element name="list-element" noscript>
-  <core-list data="{{data}}">
-    <template id="city-properties">
-      <core-ajax url="http://localhost:8080/zips/ACMAR"
-		 auto response="{{model}}"></core-ajax>
+<polymer-element name="list-element">
+    <template>
+    <p><input id="textInput" value="{{cityname}}" placeholder="Enter Cityname..."></p>
+      <core-ajax auto url="http://localhost:8080/zips/ACMAR" handleAs="json"
+		 response="{{response}}"></core-ajax>
 
-      <textarea value="{{model}}"></textarea>
-
-      <div class="row {{ {selected: selected} | tokenList }}">
-	List row: {{index}}, User data from model: {{model._id}}
-      </div>
-
+      <core-list id="citylist" fit data="{{response}}" class="listelement">
+        <template
+          <div layout horizontal>
+            <div>
+               <p>
+               {{model.city}}, {{model.state}} {{model.zip}}</br>
+               Population: {{model.population}}</br>
+               Location: {{model.loc.x}},{{model.loc.y}}</br>
+               </p>
+            </div>
+         </div>
+        </template>
+      </core-list>
     </template>
-  </core-list>
+
+    <script>
+    Polymer({
+        citynameChanged: function(oldcity) {
+	    console.log(this.cityname);
+	},
+        responseChanged: function(oldvalue) {
+	    for (var r in this.response) {
+		//console.log(r);
+	    }
+	}
+
+    });
+    </script>
+
 </polymer-element>
