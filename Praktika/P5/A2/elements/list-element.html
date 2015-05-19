@@ -4,36 +4,71 @@
 
 <polymer-element name="list-element">
     <template>
-    <p><input id="textInput" value="{{cityname}}" placeholder="Enter Cityname..."></p>
-      <core-ajax auto url="http://localhost:8080/zips/ACMAR" handleAs="json"
-		 response="{{response}}"></core-ajax>
+        <core-ajax id="dbQuery" auto="false" handleAs="json"
+		           response="{{response}}"></core-ajax>
+        <core-scaffold>
+        
+          <core-header-panel navigation flex>
+            <core-toolbar id="navheader">
+              <span>City Selection</span>
+            </core-toolbar>
+            <core-menu>
+                <paper-button raised=true on-tap="{{doQuery}}">Submit</paper-button>
+                <paper-input id="paper-input-id"
+                             placeholder="City name"
+                             value="{{city}}"
+                             inputValue="{{currentValue}}"
+                </paper-input>
+            </core-menu>
+          </core-header-panel>
+        
+          <span tool>Results</span>
+        
+          <div class="content">
+            <core-list id="citylist" fit data="{{response}}" class="listelement">
+                <template
+                    <div layout horizontal>
+                        <div>
+                            <p>
+                           {{model.city}}, {{model.state}} {{model.zip}}</br>
+                           Population: {{model.pop}}</br>
+                           Location: {{model.loc.x}},{{model.loc.y}}</br>
+                           </p>
+                        </div>
+                   </div>
+                </template>
+            </core-list>
+          </div>
+          <div id="resultMessage"></div>
+        </core-scaffold>
 
-      <core-list id="citylist" fit data="{{response}}" class="listelement">
-        <template
-          <div layout horizontal>
-            <div>
-               <p>
-               {{model.city}}, {{model.state}} {{model.zip}}</br>
-               Population: {{model.population}}</br>
-               Location: {{model.loc.x}},{{model.loc.y}}</br>
-               </p>
-            </div>
-         </div>
-        </template>
-      </core-list>
     </template>
 
     <script>
     Polymer({
-        citynameChanged: function(oldcity) {
-	    console.log(this.cityname);
-	},
-        responseChanged: function(oldvalue) {
-	    for (var r in this.response) {
-		//console.log(r);
-	    }
-	}
-
+        city : "",
+        cityChanged : function() {
+            console.log(this.setValue);
+            console.log(this.currentValue);
+            //this.$.dbQuery.url = "http://localhost:8080/zips/" + this.city;
+            if (this.setValue != "") { 
+                //this.$.dbQuery.go();
+            }
+        },
+        doQuery : function() {
+            this.$.dbQuery.url = "http://localhost:8080/zips/" + this.city;
+            if (this.city != "") {
+                this.$.dbQuery.go();
+            }            
+        },
+        responseChanged : function(previous) {
+           if (this.response == null) {
+                this.$.resultMessage.innerHTML = "Found no such city in the database";
+            }
+            else if (this.response != "") {
+                this.$.resultMessage.innerHTML = "";
+            }
+        }
     });
     </script>
 
