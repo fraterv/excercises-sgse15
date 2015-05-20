@@ -12,4 +12,13 @@ router.route('/mails').get(function(req, res){
 	});
 });
 
+router.route('/mails/:id').get(function(req, res){
+	Mails.count({folder:req.params.id},function(err, mails){
+		if (err){
+			return res.send(err);
+		}
+		res.json(mails);
+	});
+});
+
 module.exports = router;
