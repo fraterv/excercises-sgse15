@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 router.route('/mails').get(function(req, res){
-	Mails.find(function(err, mails){
+	Mails.findOne({},function(err, mails){
 		if (err){
 			return res.send(err);
 		}
