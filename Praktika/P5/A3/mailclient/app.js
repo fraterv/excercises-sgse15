@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var mails = require('./routes/mails');
-
+var msg = require('./routes/msg');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -16,6 +16,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('port', 8080);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -28,12 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', mails);
+app.use('/mailapi', msg);
 
 
 
 //mongodb connection
 var dbname = 'praktikum';
-var connectionString = 'mongodb://192.168.0.105/' + dbname;
+var connectionString = 'mongodb://localhost/' + dbname;
 console.log(connectionString);
 mongoose.connect(connectionString);
 

@@ -19,4 +19,3 @@ var mailsSchema = new Schema({
 });
 
 module.exports = mongoose.model('Mails', mailsSchema);
-//module.exports = mongoose.model('Movie', movieSchema);
