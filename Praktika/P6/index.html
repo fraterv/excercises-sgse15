@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>AngularJS Übungen Part 2</title>
+</head>
+<body ng-app="app">
+<h1>AngularJS Übungen Part 2</h1>
+
+<div ng-controller="TaskCtrl">
+    <div>
+        <a href="#/aufgabe1">Aufgabe 1</a>
+        <a href="#/aufgabe2">Aufgabe 2</a>
+        <a href="#/aufgabe3">Aufgabe 3</a>
+    </div>
+    <br/>
+
+    <!--AUFGABE START-->
+    <!--ToDo A1: ng-include durch ng-view ersetzen-->
+
+    <div ng-view></div>
+
+    <!--AUFGABE ENDE-->
+
+</div>
+
+<script type="text/javascript" src="lib/angular.js"></script>
+<script type="text/javascript" src="lib/angular-route.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
