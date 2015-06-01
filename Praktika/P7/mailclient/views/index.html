@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AngularJS-Webmailer</title>
+      
+    <!-- Angular.JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+  </head>
+  
+  <body ng-app="mailApp">
+    <div ng-controller="MainController">
+      <h1>This is a Heading</h1>
+      <h1>{{ title }}</h1>
+      <p>This is a paragraph.</p>
+      <p ng-controller="TestController">Hier kommt Test: {{ test }}</p>
+      <p ng-controller="MailsController">Hier kommt Mails: {{ mails }}</p
+    </div>
+
+  <!-- Modules -->
+  <!-- <script src="js/app.js"></script> -->
+  <script> 
+    var app = angular.module("mailApp", []);
+    app.factory('Test', ['$http', function($http){
+      return $http.get('/test');
+    }]);
+    app.factory('Mails', ['$http', function($http){
+      return $http.get('/mails');
+    }]); 
+  </script>
+
+  <!-- Controllers -->
+  <!-- <script src="js/controllers/MainController.js"></script> -->
+  <script>
+    app.controller('MainController', ['$scope', function($scope){
+      $scope.title = 'Follow the White Rabbit';
+    }]);
+    app.controller('TestController', ['$scope', 'Test', function ($scope, Test){
+      Test.success(function(data){
+        $scope.test = data;
+      }).error(function(data, status){
+        console.log(data, status);
+        $scope.test = [];
+      });
+    }]);
+    app.controller('MailsController', ['$scope', 'Mails', function ($scope, Mails){
+      Mails.success(function(data){
+        $scope.mails = data;
+      }).error(function(data, status){
+        console.log(data, status);
+        $scope.mails = [];
+      });
+    }]);
+
+  </script>
+
+  </body>
+</html>
