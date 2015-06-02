@@ -1,0 +1,99 @@
+<!DOCTYPE>
+<html ng-app="mailapp">
+<head >
+	<title>Maill App</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	
+</head>
+<body >
+<div class="container" ng-controller="AppCtrl"> 
+	<h1>Mail-App</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Folder List</th>
+				<th>Rename Folder</th>
+				<th>Action</th>
+			</tr>	
+		</thead>	
+		<tbody>
+			<tr>
+				<td><input class="from-control" ng-model="folder.folder"></td>
+				<td><input class="from-control" ng-model="rename"></td>
+				<td><button class="btn btn-primary" ng-click="update()">Update</button></td>
+			</tr>
+			<tr ng-repeat="folder in folderlist">
+				<td>{{folder}}</td>
+				<td>&nbsp</td>
+				<td><button class="btn btn-info" ng-click="select(folder)">Select</button></td>
+				<td><button class="btn btn-warning" ng-click="edit(folder)">Edit</button></td>
+				<td><button class="btn btn-danger" ng-click="remove(folder)">Remove</button></td>				
+			</tr>
+		</tbody>
+	</table>
+
+	<h2>Mails</h2>
+	<h3>Create a Mail</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Sender</th>
+				<th>Recipients</th>
+				<th>Subject</th>
+			</tr>
+		</thead>	
+		<tbody>
+			<tr>
+				<td><input class="from-control" ng-modul="mail.sender"></td>
+				<td><input class="from-control" ng-modul="mail.recipients"></td>
+				<td><input class="from-control" ng-modul="mail.subject"></td>
+				<td><button class="btn btn-primary" ng-click="create()">Create Message</button></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>View Mails</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Mail Action</th>
+				<th>&nbsp</th><th>&nbsp</th>
+				<th>Sender</th>
+				<th>Recipients</th>
+				<th>Subject</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><button class="btn btn-primary" ng-click="movemsg()">Move Mail</button></td>
+				<td>&nbsp</td><td>&nbsp</td>
+				<td><input class="from-control" ng-model="mv.folder"></td>
+				
+			</tr>
+			<tr ng-repeat="mail in maillist">
+				
+				<td><button class="btn btn-info" ng-click="show(mail)">show</button></td>
+				<td><button class="btn btn-warning" ng-click="move(mail)">move</button></td>
+				<td><button class="btn btn-danger" ng-click="msgdel(mail)">delete</button></td>
+				<td>{{mail.sender}}</td>
+				<td>{{mail.recipients}}</td>
+				<td>{{mail.subject}}</td>
+				<td>{{mail.date}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<textarea class="" ng-model="message"></textarea>
+</div>
+
+
+
+<script src="angular.min.js"></script>
+<script src="controllers/controller.js"></script>
+</body>
+
+</html>
