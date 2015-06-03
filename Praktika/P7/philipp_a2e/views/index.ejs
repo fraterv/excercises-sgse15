@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- ES6-related imports -->
+    <script src="dist/lib/traceur-runtime.js"></script>
+    <script src="dist/lib/es6-module-loader-sans-promises.src.js"></script>
+    <script src="dist/lib/extension-register.js"></script>
+    <script src="dist/lib/extension-cjs.js"></script>
+    <script>
+        register(System);
+    </script>
+    <script src="dist/lib/Reflect.js"></script>
+
+    <!-- Angular2-related imports -->
+    <script src="dist/lib/zone.js"></script>
+    <script src="dist/lib/long-stack-trace-zone.js"></script>
+    <script src="dist/lib/angular2.js"></script>
+    <script src="dist/lib/angular2.js"></script>
+
+    <!-- Non-Angular2-related imports
+    <script src="dist/lib/axios.js"></script>
+    <link rel="stylesheet" href="dist/lib/css/font-awesome.css"/>
+    -->
+    <link rel="stylesheet" href="dist/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/app.css"/>
+</head>
+<body>
+    <main>
+        <div class="container" [hidden]="!loading">
+            <h2 text="center">
+                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">
+                    Loading Folders
+                </span>
+            </h2>
+        </div>
+    </main>
+
+    <script>
+        System.paths = {
+            'rx' : "dist/lib/rx.all.js",
+            'angular2/*' : "dist/lib/angular2.js",
+            'zone': "dist/lib/zone.js",
+            'long-stack-trace-zone': "dist/lib/long-stack-trace-zone.js",
+            'axios' : "dist/lib/axios.js",
+            '*' : "dist/*.js",
+        };
+
+        System.import('main').catch(console.log.bind(console));
+    </script>
+
+</body>
+
+</html>
