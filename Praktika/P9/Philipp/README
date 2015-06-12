@@ -3,6 +3,9 @@ In dieser Version liegen Client und Server Anwendungen in getrennten Ordnern.
 Der Client basiert auf dem ionic-starter-sidemenu-Template,
 vgl. http://ionicframework.com/getting-started/.
 Der Client kann lokal über 'ionic serve' gestartet werden.
+Referenzen:
+https://ccoenraets.github.io/ionic-tutorial/create-angular-service.html
+http://www.htmlxprs.com/post/12/tutorial-on-using-parse-rest-api-and-ionic-framework-together
 
 Der Server ist eine Kopie des mailclients aus P5/A3.
 Er wird wie üblich über ./bin/www gestartet, stellt eine
@@ -10,3 +13,5 @@ Verbindung zur locolhost-MongoDB her und horcht auf Port 3000.
 Damit der Client, der jetzt ja 'extern' läuft, Daten erhalten kann
 wird für alle Antworten im header 'Access-Controll-Allow-Origin:*'
 gesetzt (siehe routes/*.js).
+Referenzen:
+http://stackoverflow.com/questions/9310112/why-am-i-seeing-an-origin-is-not-allowed-by-access-control-allow-origin-error
