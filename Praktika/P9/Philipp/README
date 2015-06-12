@@ -1,0 +1,12 @@
+In dieser Version liegen Client und Server Anwendungen in getrennten Ordnern.
+
+Der Client basiert auf dem ionic-starter-sidemenu-Template,
+vgl. http://ionicframework.com/getting-started/.
+Der Client kann lokal über 'ionic serve' gestartet werden.
+
+Der Server ist eine Kopie des mailclients aus P5/A3.
+Er wird wie üblich über ./bin/www gestartet, stellt eine
+Verbindung zur locolhost-MongoDB her und horcht auf Port 3000.
+Damit der Client, der jetzt ja 'extern' läuft, Daten erhalten kann
+wird für alle Antworten im header 'Access-Controll-Allow-Origin:*'
+gesetzt (siehe routes/*.js).
