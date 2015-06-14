@@ -18,9 +18,9 @@ router.route('/mails').get(function(req, res){
     });
 });
 
-// Get count of messages in folder
+// Get all messages from folder
 router.route('/mails/:id').get(function(req, res){
-    Mails.count({folder:req.params.id},function(err, mails){
+    Mails.find({folder:req.params.id},function(err, mails){
         if (err){
             return res.send(err);
         }
