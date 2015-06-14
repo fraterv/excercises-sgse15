@@ -15,37 +15,6 @@ var AppCtrlFunc =
         console.log("Page refresh: Showing menu left");
         $ionicSideMenuDelegate.toggleLeft();
     });
-
-    // Form data for the login modal
-    $scope.loginData = {};
-
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.modal = modal;
-    });
-
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function() {
-        $scope.modal.hide();
-    };
-
-    // Open the login modal
-    $scope.login = function() {
-        $scope.modal.show();
-    };
-
-    // Perform the login action when the user submits the login form
-    $scope.doLogin = function() {
-        console.log('Doing login', $scope.loginData);
-
-        // Simulate a login delay. Remove this and replace with your login
-        // code if using a login system
-        $timeout(function() {
-            $scope.closeLogin();
-        }, 1000);
-    };
 };
 
 
@@ -55,10 +24,38 @@ angular.module('starter.controllers', ['starter.services'])
 
 // $stateParams provides access to the url/:parameter
 .controller('FolderCtrl', function($scope, $stateParams, $ionicScrollDelegate,
-                                   Folders) {
+                                   $ionicModal, Folders, Mails) {
     $scope.folder = $stateParams.folderId;
 
     Folders.getMailsFrom($scope.folder).success(function(data) {
         $scope.mails = data;
     });
+
+    // Create the mailView modal
+    $ionicModal.fromTemplateUrl('templates/mail.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.mailView = modal;
+    });
+
+    // Triggered in the mailView modal to close it
+    $scope.closeMailView = function() {
+        $scope.mailView.hide();
+    };
+
+    // Open the login modal
+    $scope.openMail = function($index) {
+        console.log("Showing mail " + $index);
+        $scope.mail = $scope.mails[$index];
+        $scope.mailIdx = $index;
+        $scope.mailView.show();
+    };
+
+    $scope.deleteMail = function() {
+        console.log("Deleting current mail ");
+        $scope.mails.splice($scope.mailIdx, 1);
+        Mails.delete($scope.mail._id);
+        $scope.mail = null;
+        $scope.closeMailView();
+    };
 });

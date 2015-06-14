@@ -1,4 +1,6 @@
-angular.module('starter.services', []).factory('Folders', ['$http', function($http) {
+angular.module('starter.services', [])
+
+.factory('Folders', ['$http', function($http) {
     return {
         getAll:function() {
             return $http.get('http://localhost:3000/api/mails');
@@ -12,6 +14,14 @@ angular.module('starter.services', []).factory('Folders', ['$http', function($ht
         },
         delete:function(id){
             return $http.delete('http://localhost:3000/api/mails/' + id);
+        }
+    }
+}])
+
+.factory('Mails', ['$http', function($http) {
+    return {
+        delete:function(id){
+            return $http.delete('http://localhost:3000/mailapi/msg/' + id);
         }
     }
 }]);
