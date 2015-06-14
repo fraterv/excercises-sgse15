@@ -53,9 +53,10 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', AppCtrlFunc)
 
-.controller('FoldersCtrl', function($scope, Folders) {
-    Folders.getAll().success(function(data) {
-        $scope.folders = data;
+// $stateParams provides access to the url/:parameter
+.controller('FolderCtrl', function($scope, $stateParams, Folders) {
+    Folders.getMailsFrom($stateParams.folderId).success(function(data) {
+        $scope.mails = data;
     });
 })
 

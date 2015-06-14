@@ -3,7 +3,7 @@ angular.module('starter.services', []).factory('Folders', ['$http', function($ht
         getAll:function() {
             return $http.get('http://localhost:3000/api/mails');
         },
-        get:function(id){
+        getMailsFrom:function(id){
             return $http.get('http://localhost:3000/api/mails/'+id);
         },
         edit:function(id,newname){

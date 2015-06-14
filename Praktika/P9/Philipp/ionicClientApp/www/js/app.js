@@ -21,51 +21,45 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+    $stateProvider
 
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.folders', {
-      url: "/folders",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/folders.html",
-          controller: 'FoldersCtrl'
-        }
-      }
+    .state('app', {
+        url: "/app",
+        abstract: true,
+        templateUrl: "templates/menu.html",
+        controller: 'AppCtrl'
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/folders');
+        <!-- app/ is the root if specifying a substate using app.* -->
+    .state('app.folders', {
+        url: "/folders",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/empty.html"
+            }
+        }
+    })
+
+    .state('app.folder', {
+        url: "/folder/:folderId",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/folder.html",
+                controller: 'FolderCtrl'
+            }
+        }
+    });
+
+    //  .state('app.mail', {
+    //    url: "/app/mails/:mailId",
+    //    views: {
+    //      'menuContent': {
+    //        templateUrl: "templates/mail.html",
+    //        controller: 'MailCtrl'
+    //      }
+    //    }
+    //  });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/app/folders');
 });
