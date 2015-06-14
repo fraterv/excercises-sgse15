@@ -10,6 +10,9 @@ var mails = require('./routes/mails');
 var msg = require('./routes/msg');
 
 var app = express();
+// cors-middleware enables cross origin resource sharing
+var cors = require('cors');
+app.use(cors());
 
 app.set('port', 8080);
 

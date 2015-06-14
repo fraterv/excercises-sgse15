@@ -12,7 +12,8 @@ router.route('/mails').get(function(req, res){
 
         // To allow access from other domain
         // (which is also same host but different port):
-        res.set('Access-Control-Allow-Origin', '*');
+        // No longer needed due to use of cors, see app.js
+        // res.set('Access-Control-Allow-Origin', '*');
 
         res.json(mails);
     });
@@ -25,7 +26,6 @@ router.route('/mails/:id').get(function(req, res){
             return res.send(err);
         }
 
-        res.set('Access-Control-Allow-Origin', '*');
         res.json(mails);
     });
 });
@@ -38,7 +38,6 @@ router.route('/mails/:id').delete(function(req, res){
           if(err){
               return res.send(err);
           }
-          res.set('Access-Control-Allow-Origin', '*');
           res.json({message:"Successfully deleted"});
       });
 });
@@ -55,7 +54,6 @@ router.route('/mails/:id').put(function(req, res){
                      if(err){
                          return res.send(err);
                      }
-                     res.set('Access-Control-Allow-Origin', '*');
                      res.json({message:"Successfully renamed"});
                  });
 
