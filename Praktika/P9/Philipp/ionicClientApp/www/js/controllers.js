@@ -54,13 +54,11 @@ angular.module('starter.controllers', ['starter.services'])
 .controller('AppCtrl', AppCtrlFunc)
 
 // $stateParams provides access to the url/:parameter
-.controller('FolderCtrl', function($scope, $stateParams, Folders) {
-    Folders.getMailsFrom($stateParams.folderId).success(function(data) {
+.controller('FolderCtrl', function($scope, $stateParams, $ionicScrollDelegate,
+                                   Folders) {
+    $scope.folder = $stateParams.folderId;
+
+    Folders.getMailsFrom($scope.folder).success(function(data) {
         $scope.mails = data;
     });
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
 });
-
-
