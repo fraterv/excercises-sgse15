@@ -22,6 +22,10 @@ angular.module('starter.services', [])
     return {
         delete:function(id){
             return $http.delete('http://localhost:3000/mailapi/msg/' + id);
+        },
+        move:function(id, folder) {
+            return $http.put('http://localhost:3000/mailapi/msg/' + id +
+                             '?folder=' + folder);
         }
     }
 }]);

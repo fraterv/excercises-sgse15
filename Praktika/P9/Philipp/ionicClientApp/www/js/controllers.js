@@ -17,15 +17,21 @@ var AppCtrlFunc =
     });
 };
 
+var FolderCtrlFunc =
+    // $stateParams provides access to the url/:parameter,
+    // $ionicScrollDelegate is probably not needed,
+    // $ionicModal is the directive for modal dialogs.
+    function($scope, $stateParams, $ionicScrollDelegate,
+             $ionicModal, Folders, Mails) {
 
-angular.module('starter.controllers', ['starter.services'])
-
-.controller('AppCtrl', AppCtrlFunc)
-
-// $stateParams provides access to the url/:parameter
-.controller('FolderCtrl', function($scope, $stateParams, $ionicScrollDelegate,
-                                   $ionicModal, Folders, Mails) {
     $scope.folder = $stateParams.folderId;
+    // Need this to have the newFolder visible in child scopes,
+    // which use prototypical inheritance and therefore would
+    // define their own newFolder if e.g. bound to ng-model.
+    // See http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html
+    $scope.mailScope = {
+        newFolder: ""
+    };
 
     Folders.getMailsFrom($scope.folder).success(function(data) {
         $scope.mails = data;
@@ -40,6 +46,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     // Triggered in the mailView modal to close it
     $scope.closeMailView = function() {
+        $scope.mail = $scope.mailIdx = null;
         $scope.mailView.hide();
     };
 
@@ -47,6 +54,7 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.openMail = function($index) {
         console.log("Showing mail " + $index);
         $scope.mail = $scope.mails[$index];
+        $scope.mailScope.newFolder = "";
         $scope.mailIdx = $index;
         $scope.mailView.show();
     };
@@ -55,7 +63,22 @@ angular.module('starter.controllers', ['starter.services'])
         console.log("Deleting current mail ");
         $scope.mails.splice($scope.mailIdx, 1);
         Mails.delete($scope.mail._id);
-        $scope.mail = null;
         $scope.closeMailView();
     };
-});
+
+    $scope.moveMail = function() {
+        if ($scope.mailScope.newFolder != "") {
+            console.log("Moving mail");
+            Mails.move($scope.mail._id, $scope.mailScope.newFolder);
+            $scope.mails.splice($scope.mailIdx, 1);
+            $scope.closeMailView();
+        }
+    }
+};
+
+
+angular.module('starter.controllers', ['starter.services'])
+
+.controller('AppCtrl', AppCtrlFunc)
+
+.controller('FolderCtrl', FolderCtrlFunc);
