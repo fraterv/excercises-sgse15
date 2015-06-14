@@ -21,7 +21,7 @@
         <ion-header-bar class="bar-stable">
             <h1 class="title">Folders</h1>
         </ion-header-bar>
-        <ion-content>
+        <ion-content cache-view="false">
             <ion-list>
                 <ion-item ng-repeat="folder in folders"
                           href="#/app/folder/{{folder}}"
@@ -30,22 +30,5 @@
                 </ion-item>
             </ion-list>
         </ion-content>
-
-        <!-- <ion-content> -->
-        <!--     <ion-list> -->
-        <!--         <ion-item menu-close ng-click="login()"> -->
-        <!--             Login -->
-        <!--         </ion-item> -->
-        <!--         <ion-item menu-close href="#/app/search"> -->
-        <!--             Search -->
-        <!--         </ion-item> -->
-        <!--         <ion-item menu-close href="#/app/browse"> -->
-        <!--             Browse -->
-        <!--         </ion-item> -->
-        <!--         <ion-item menu-close href="#/app/folders"> -->
-        <!--             Folders -->
-        <!--         </ion-item> -->
-        <!--     </ion-list> -->
-        <!-- </ion-content> -->
     </ion-side-menu>
 </ion-side-menus>

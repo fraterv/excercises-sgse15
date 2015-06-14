@@ -1,9 +1,24 @@
 <ion-view view-title="{{folder}}">
-    <ion-content overflow-scroll="true">
+    <ion-content class="padding" overflow-scroll="true">
         <!-- unfortunately ng-click does not work in ion-list.
              The workaround is a div, but this does not show the delete button... -->
         <!--    <ion-list show-delete="true"> -->
-        <div>
+        <div class="item item-input-inset">
+            <label class="item item-input">
+                <input type="text"
+                       placeholder="New Foldername"
+                       ng-model="inheritableScope.newFolderName">
+            </label>
+            <button class="button button-positive"
+                    ng-click="renameFolder()">
+                Rename
+            </button>
+            <button class="button button-negative"
+                    ng-click="deleteFolder()">
+                Delete
+            </button>
+        </div>
+        <div class="list">
             <ion-item ng-repeat="mail in mails track by $index"
                       ng-click="openMail($index)">
                 <h2>{{mail.subject}}</h2>

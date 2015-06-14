@@ -8,7 +8,7 @@ angular.module('starter.services', [])
         getMailsFrom:function(id){
             return $http.get('http://localhost:3000/api/mails/'+id);
         },
-        edit:function(id,newname){
+        rename:function(id,newname){
             var query = id + "?folder=" + newname;
             return $http.put('http://localhost:3000/api/mails/'+query);
         },
