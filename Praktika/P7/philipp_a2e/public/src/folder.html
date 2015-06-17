@@ -1,0 +1,93 @@
+<!-- Complete div not shown if mails is not t -->
+<div class="row col-md-12 folders" [hidden]="!mails">
+
+    <div class="row col-md-12">
+        <input type="button" class="btn btn-info"
+               class="pull-right" value="Back"
+               (click)="backToFolders()">
+
+        <input type="button" class="btn btn-info"
+               class="pull-right" value="Add Mail"
+               (click)="stateComposingMail()">
+    </div>
+
+    <div [hidden]="!composingMail">
+        <!-- Option for the parent to insert content here -->
+        <content select="[composing-mail]">
+        </content>
+
+        <input type="button" class="btn btn-default"
+               (click)="stateComposingMail()"
+               value="Cancel"></input>
+
+        <!-- Add-mail formular
+        <add-mail #newMail (complete)="addMail()"></add-mail>
+        -->
+        <form>
+            <div class="form-group">
+                <label for="recipient">Email address</label>
+                <input type="email" class="form-control" id="recipient"
+                       placeholder="To:"
+                       value="[recipient]">
+            </div>
+            <div class="form-group">
+                <label for="recipient">Email address</label>
+                <input type="email" ng-model="sender"
+                       class="form-control" id="sender"
+                       placeholder="From:">
+            </div>
+            <div class="form-group">
+                <label for="recipient">Text</label>
+                <textarea class="form-control" rows="3" id="text"
+                          placeholder="Text:"
+                          value="[text]">
+                </textarea>
+            </div>
+            <input type="button" class="btn btn-info"
+                   class="pull-right" value="Save"
+                   (click)="validateAndSaveMail(mail-form.value)">
+            <!--    <button type="submit" class="btn btn-default">Submit</button> -->
+        </form>
+
+    </div>
+
+    <br>
+
+    <!-- Only shown if there exists no mail in this folder -->
+    <div *ng-if="mails" class="alert alert-info text-center" [hidden]="mails.length > 0">
+        <h3>No Mails here!</h3>
+    </div>
+    <!-- Only evaluated if mails is defined -->
+    <div *ng-if="mails">
+        <div *ng-for="#mail of mails"
+             class="col-md-12 col-sm-12 col-xs-12 folder">
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <span>{{mail._id}}: {{mail.subject}}</span>
+            </div>
+            <!-- Only shown if this mail has been selected (toggle) -->
+            <div [hidden]="!mail.selected">
+                <i style="line-height: 200%">{{mail.sender}} wrote on {{mail.date}}:</i><br>
+                {{mail.text}}<br>
+                <b>Recipients:</b><br>
+                {{mail.recipients}}<br>
+            </div>
+
+            <!-- UI-inputs -->
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <input type="button" class="btn btn-info"
+                       class="pull-right" value="Toggle"
+                       (click)="openCloseMail(mail)">
+
+                <input type="button" class="btn btn-warning"
+                       class="pull-right" value="Delete"
+                       (click)="deleteMail(mail)">
+
+                <input class="input input-lg"
+                       placeholder="Move to Folder"
+                       (keyup)="moveMail($event, mail)" />
+
+            </div>
+        </div>
+    </div>
+</div>

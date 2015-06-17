@@ -1,0 +1,46 @@
+<div class="row col-md-12">
+    <h1 class="text-center">M.E.A.N. App with Angular 2.0</h1>
+    <hr>
+    <div [hidden]="mails" class="row col-md-12 folders">
+        <br>
+        <div class="alert alert-info text-center" [hidden]="folders.length > 0">
+            <h3>No Folders yet!</h3>
+        </div>
+        <!-- col-device-columns, max columns is 12 -->
+        <div *ng-for="#folder of folders"
+             class="col-md-12 col-sm-12 col-xs-12 folder">
+            <div class="col-md-7 col-sm-7 col-xs-7">
+                <span [hidden]="folder.isEditMode">{{folder.name}}</span>
+
+                <input [hidden]="!folder.isEditMode"
+                       type="text" [value]="folder.name"
+                       (keypress)="updateFolderName($event, folder);">
+                <input [hidden]="!folder.isEditMode"
+                       type="button"
+                       value="Cancel" (click)="setEditState(folder, false)">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <input type="button" class="btn btn-info"
+                       class="pull-right" value="Open"
+                       (click)="openFolder(folder)">
+
+                <input type="button" class="btn btn-info"
+                       class="pull-right" value="Edit"
+                       (click)="setEditState(folder, true)">
+
+                <input type="button" class="btn btn-warning"
+                       class="pull-right" value="Delete"
+                       (click)="deleteFolder(folder)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" [hidden]="!loading">
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">Loading mails</span>
+</div>
+<folder-view [mails]="mails" [loading]="loading">
+    <!-- Just a reminder how this content selection works -->
+    <div composing-mail>
+        Composing mail now
+    </div>
+</folder-view>

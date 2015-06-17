@@ -1,0 +1,40 @@
+<md-dialog aria-label="$scope.msgId">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{subject}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="answer('nothing')">
+                    <ng-md-icon icon="close" aria-label="Close dialog">
+                    </ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div><b>Recipients</b><br>
+                {{recipients}}<br>
+            </div>
+            <div>
+                <p>
+                    {{message}}
+                </p>
+            </div><br>
+            <md-input-container flex>
+                <label>Move to folder</label>
+                <input ng-model='newFolder'></input>
+            </md-input-container>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="answer('move')" class="md-primary">
+                Move
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="answer('delete')" class="md-primary">
+                Delete
+            </md-button>
+            <md-button ng-click="answer('nothing')" class="md-primary">
+                Cancel
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

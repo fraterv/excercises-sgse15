@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">{{mail.subject}}</h1>
+    <div class="buttons">
+        <button class="button button-negative" ng-click="deleteMail()">
+            Delete
+        </button>
+        <button class="button button-clear" ng-click="closeMailView()">
+            Close
+        </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding" overflow-scroll="true">
+      {{mail.text}}
+
+      <label class="item item-input">
+          <span class="input-label">New Folder</span>
+          <input type="text" ng-model="inheritableScope.newFolder">
+      </label>
+      <button class="button button-positive" ng-click="moveMail()">
+          Move
+      </button>
+
+  </ion-content>
+</ion-modal-view>

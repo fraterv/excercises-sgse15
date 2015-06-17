@@ -1,0 +1,5 @@
+In diesem Ordner:
+npm --save install
+
+Siehe auch Readme im Ordner public.
+Starten dann mit ./bin/www

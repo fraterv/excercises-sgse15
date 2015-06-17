@@ -1,0 +1,18 @@
+In dieser Version liegen Client und Server Anwendungen in getrennten Ordnern.
+
+Der Client basiert auf dem ionic-starter-sidemenu-Template,
+vgl. http://ionicframework.com/getting-started/.
+Der Client kann lokal über 'ionic serve' gestartet werden.
+Referenzen:
+https://ccoenraets.github.io/ionic-tutorial/create-angular-service.html
+http://www.htmlxprs.com/post/12/tutorial-on-using-parse-rest-api-and-ionic-framework-together
+
+Der Server ist eine Kopie des mailclients aus P5/A3.
+Er wird wie üblich über ./bin/www gestartet, stellt eine
+Verbindung zur localhost-MongoDB her und horcht auf Port 3000.
+
+Damit der Client, der jetzt ja 'extern' läuft, Daten erhalten kann
+wird die Cors-Middleware benutzt, siehe app.js.
+
+Alternative ist das Setzen von 'Access-Controll-Allow-Origin:*' fuer alle
+Antworten (siehe Bsp in mais.js); DELETE hat in der msg-api damit aber nicht funktioniert.
