@@ -13,7 +13,7 @@
       <h1>{{ title }}</h1>
       <p>This is a paragraph.</p>
       <p ng-controller="TestController">Hier kommt Test: {{ test }}</p>
-      <p ng-controller="MailsController">Hier kommt Mails: {{ mails }}</p
+      <p ng-controller="MailsController">Hier kommen Mails: {{ mails | json }}</p
     </div>
 
   <!-- Modules -->
@@ -24,7 +24,7 @@
       return $http.get('/test');
     }]);
     app.factory('Mails', ['$http', function($http){
-      return $http.get('/mails');
+      return $http.get('/api/mails');
     }]); 
   </script>
 

@@ -28,13 +28,17 @@ routen.route('/msg/:id').delete(function(req, res){
 });
 
 // Creates a mail
-routen.route('/msg/:id').post(function(req, res){
+//routen.route('/msg/:id').post(function(req, res){
+routen.route('/msg').post(function(req, res){ 
   console.log("Creating mail");
   var m = new Msg();
   m.sender = req.query.s;
   m.recipients = req.query.r;
   m.text = req.query.t;
   m.date = new Date();
+  console.log('req' + req);
+  console.log('req.query:' + req.query);
+  console.log('req.query.r:' + req.query.r);
   console.log(m);
   m.save(function(err) {
     if (err){

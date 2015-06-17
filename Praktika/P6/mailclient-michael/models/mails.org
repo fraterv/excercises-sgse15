@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var messageSchema = new Schema({
+var mailsSchema = new Schema({
 	sender: String,
 	recipients: String,
 	cc: String,
@@ -18,4 +18,4 @@ var messageSchema = new Schema({
 	subject: String
 });
 
-module.exports = mongoose.model('Msg', messageSchema);
+module.exports = mongoose.model('Mails', mailsSchema);
