@@ -44,8 +44,13 @@ var FolderCtrlFunc =
     // See http://jimhoskins.com/2012/12/14/nested-scopes-in-angularjs.html
     $scope.inheritableScope = {
         newFolder: "", // move mail
-        newFolderName: "" // rename folder
+        newFolderName: "", // rename folder
+        newMailSubject: "",
+        newMailSender: "",
+        newMailText: "",
+        newMailRecipient: ""
     };
+    $scope.newMailText = "";
 
     $scope.deleteFolder = function() {
         console.log("Deleting folder " + $scope.folder);
@@ -105,6 +110,35 @@ var FolderCtrlFunc =
             $state.go('app.folders');
         }
     }
+
+
+    // Create the modal to add a new mail
+    $ionicModal.fromTemplateUrl('templates/mailNew.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.mailNewView = modal;
+    });
+
+
+    $scope.addNewMail = function() {
+        $scope.mailNewView.show();
+    }
+
+    $scope.createNewMail = function() {
+        console.log("Text: " + $scope.newMailText);
+        console.log("Sender: " + $scope.inheritableScope.newMailSender);
+        Mails.create($scope.folder, $scope.inheritableScope.newMailSender,
+                     $scope.inheritableScope.newMailRecipient,
+                     $scope.inheritableScope.newMailSubject);
+
+        $scope.closeNewMailView();
+    }
+
+    // Triggered in the mailNewView modal to close it
+    $scope.closeNewMailView = function() {
+        $scope.mailNewView.hide();
+    };
+
 };
 
 

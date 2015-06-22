@@ -26,6 +26,10 @@ angular.module('starter.services', [])
         move:function(id, folder) {
             return $http.put('http://localhost:3000/mailapi/msg/' + id +
                              '?folder=' + folder);
+        },
+        create:function(folder, sender, recipient, subject) {
+            return $http.post('http://localhost:3000/mailapi/msg/' + folder
+                              + '?s=' + sender + '&r=' + recipient + '&j=' + subject);
         }
     }
 }]);

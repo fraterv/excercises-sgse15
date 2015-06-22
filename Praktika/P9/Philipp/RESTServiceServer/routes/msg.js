@@ -31,10 +31,13 @@ routen.route('/msg/:id').delete(function(req, res){
 routen.route('/msg/:id').post(function(req, res){
     console.log("Creating mail");
     var m = new Msg();
+    m.folder = req.params.id;
     m.sender = req.query.s;
     m.recipients = req.query.r;
-    m.text = req.query.t;
+    m.subject = req.query.j;
     m.date = new Date();
+    console.log("Vars: " + m.folder + ' ' +
+                m.sender + ' ' + m.recipients + ' ' + m.subject + ' ' + m.date);
     console.log(m);
     m.save(function(err) {
         if (err){

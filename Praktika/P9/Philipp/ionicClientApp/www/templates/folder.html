@@ -17,6 +17,10 @@
                     ng-click="deleteFolder()">
                 Delete
             </button>
+            <button class="button button-info"
+                    ng-click="addNewMail()">
+                Add new Mail
+            </button>
         </div>
         <div class="list">
             <ion-item ng-repeat="mail in mails track by $index"
