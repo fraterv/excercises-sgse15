@@ -1,0 +1,11 @@
+var keyMirror = require('keymirror');
+
+module.exports = {
+
+    // creates constants with value = key
+    ActionTypes: keyMirror({
+        FOLDER_CREATE: null,
+        FOLDER_OPEN: null,
+        FOLDER_LOAD_ALL: null
+    })
+};
