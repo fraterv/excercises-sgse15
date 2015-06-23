@@ -5,35 +5,36 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+//var multer = require('multer');
 
-var mails = require('./routes/mails');
-var msg = require('./routes/msg');
+var routes = require('./routes/index');
+var test = require('./routes/test');
+var users = require('./routes/users');
+var mailapi = require('./routes/mailapi');
 
 var app = express();
 // cors-middleware enables cross origin resource sharing
 var cors = require('cors');
 app.use(cors());
 
-app.set('port', 8080);
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hjs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', mails);
-app.use('/mailapi', msg);
-
-
-
-//mongodb connection
-var dbname = 'praktikum';
-var connectionString = 'mongodb://localhost/' + dbname;
-console.log(connectionString);
-mongoose.connect(connectionString);
+app.use('/', routes);
+app.use('/users', users);
+app.use('/test', test);
+app.use('/mailapi', mailapi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,6 +56,8 @@ if (app.get('env') === 'development') {
     });
   });
 }
+
+mongoose.connect('mongodb://localhost/praktikum');
 
 // production error handler
 // no stacktraces leaked to user
