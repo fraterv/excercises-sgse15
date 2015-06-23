@@ -8,60 +8,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script src="bower_components/axios/dist/axios.min.js"></script>
+    <script src="scripts/mailApi.js"></script>
   </head>
   <body>
+
     <div id="content"></div>
     <!-- <script type="text/jsx;harmony=true" src="scripts/example.js"></script> -->
     <script type="text/jsx">
 
-    var CommentBox = React.createClass({
-      render: function() {
-        return (
-          <div className="commentBox">
-           <h1>Comments</h1>
-           <CommentList />
-           <CommentForm />
-          </div>
-        );
-      }
-    });
+    var Folders = React.createClass({
 
-    var Comment = React.createClass({
+      componentDidMount: function () {
+        getAllMails().then( function (resp) {
+          console.log(resp.data);
+        });
+      },
       render: function() {
         return (
-          <div className="comment">
-            <h2 className="commentAuthor">
-              {this.props.author}
-            </h2>
-            {this.props.children}
-          </div>
-        );
-      }
-    });
+          <h1>Folders</h1>
 
-    var CommentList = React.createClass({
-      render: function() {
-        return (
-          <div className="commentList">
-            <Comment author="Pete Hunt">This is one comment</Comment>
-            <Comment author="Jordan Walke">This is *another* comment</Comment>
-          </div>
-        );
-      }
-    });
-
-    var CommentForm = React.createClass({
-      render: function() {
-        return (
-          <div className="commentForm">
-            Hello, world! I am a CommentForm.
-          </div>
         );
       }
     });
 
     React.render(
-    <CommentBox />,
+    <Folders />,
     document.getElementById('content')
   );
     </script>
