@@ -5,7 +5,7 @@ injectTapEventPlugin();
 
 var React = require('react');
 var MailApp = require('./components/MailApp.react');
-var FolderActions = require('./actions/folderActions');
+var FolderActions = require('./actions/FolderActions');
 
 window.React = React; // for the devtools
 

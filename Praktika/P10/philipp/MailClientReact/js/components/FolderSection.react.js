@@ -6,7 +6,7 @@ var AppCanvas = mui.AppCanvas;
 var AppBar = mui.AppBar;
 
 var EnronStore = require('../stores/EnronStore');
-var FolderActions = require('../actions/folderActions');
+var FolderActions = require('../actions/FolderActions');
 
 function getStateFromStore() {
     return {
