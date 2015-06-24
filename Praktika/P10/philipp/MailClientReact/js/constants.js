@@ -6,6 +6,8 @@ module.exports = {
     ActionTypes: keyMirror({
         FOLDER_CREATE: null,
         FOLDER_OPEN: null,
-        FOLDER_LOAD_ALL: null
+        FOLDER_LOAD_ALL: null,
+
+        MAIL_OPEN: null
     })
 };

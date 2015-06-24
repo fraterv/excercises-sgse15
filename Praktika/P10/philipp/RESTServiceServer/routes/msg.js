@@ -7,11 +7,16 @@ var routen = express.Router();
 routen.route('/msg/:id').get(function(req, res){
     console.log("Requesting mail " + req.params.id);
     Msg.find({"_id" : req.params.id},
-             {"sender" : 1, "recipients" : 1, "date" : 1, "subject" : 1},
+             {"sender" : 1,
+              "text" : 1,
+              "recipients" : 1,
+              "date" : 1,
+              "subject" : 1},
              function(err, mail){
                  if (err){
                      return res.send(err);
                  }
+                 //console.log(mail);
                  res.json(mail);
              });
 });

@@ -1,4 +1,8 @@
 /** @jsx React.DOM */
+// needed by material-ui
+var injectTapEventPlugin = require('react-tap-event-plugin');
+injectTapEventPlugin();
+
 var React = require('react');
 var MailApp = require('./components/MailApp.react');
 var FolderActions = require('./actions/folderActions');

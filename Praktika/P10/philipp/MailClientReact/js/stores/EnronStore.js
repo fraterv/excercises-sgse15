@@ -11,6 +11,8 @@ var host = 'http://localhost:3000'; // data backend
 
 var CHANGE_EVENT = 'change';
 
+var _currentMail = {subject:""} // currently selected mail
+var _currentFolder = "" // currently opened folder
 var _folders = {}; // all available folders
 var _mails = {}; // all mails of current folder
 
@@ -22,7 +24,17 @@ var EnronStore = assign({}, EventEmitter.prototype, {
         return _folders;
     },
 
-    getAllMails: function(folder) {
+    getCurrentFolder: function() {
+        console.log("EnronStore::getCurrentFolders");
+        return _currentFolder;
+    },
+
+    getCurrentMail: function() {
+        console.log("EnronStore::getCurrentMail");
+        return _currentMail;
+    },
+
+    getAllMails: function() {
         console.log("EnronStore::getAllMails");
         return _mails;
     },
@@ -59,8 +71,15 @@ EnronStore.dispatchToken = MailAppDispatcher.register(
             break;
             case ActionTypes.FOLDER_OPEN:
             var folder = action.folder;
+            _currentFolder = folder;
             console.log("EnronStoreCB::OpenFolder " + folder);
-            EnronStore.emitChange();
+            Http.folderGetMails(folder, function(mails) {
+                _mails = mails.map(function(mail) {
+                               return {id: mail._id, mail: mail};
+                           });
+//                console.log("Received mails: " + _mails);
+                EnronStore.emitChange();
+            });
 
             break;
 
@@ -68,7 +87,21 @@ EnronStore.dispatchToken = MailAppDispatcher.register(
             var folder = action.folder;
             console.log("EnronStoreCB::FolderLoadAll");
             Http.folderGetAll(function(folders) {
-                console.log("Received folders: " + folders);
+                _folders = folders.map(function(folder) {
+                               return {id: folder, text: folder};
+                           });
+//                console.log("Received folders: " + _folders);
+                EnronStore.emitChange();
+            });
+
+            case ActionTypes.MAIL_OPEN:
+            var mail = action.id;
+            console.log("EnronStoreCB::MailOpen");
+            Http.mailOpen(mail, function(mail) {
+                if (mail.length) {
+                    _currentMail = mail[0];
+                }
+                console.log("Received mail: " + mail);
                 EnronStore.emitChange();
             });
 

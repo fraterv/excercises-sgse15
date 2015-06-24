@@ -30,6 +30,14 @@ module.exports = {
         $.delete('http://localhost:3000/api/mails/' + folder);
     },
 
+    mailOpen: function(id, cb){
+        console.log("http::mailOpen: " + id);
+        $.get('http://localhost:3000/mailapi/msg/' + id,
+              function(data) {
+                  cb(data);
+              });
+    },
+
     mailDelete: function(id){
         console.log("http::mailDelete: " + id);
         $.delete('http://localhost:3000/mailapi/msg/' + id);

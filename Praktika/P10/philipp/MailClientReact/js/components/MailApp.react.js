@@ -1,8 +1,10 @@
 var React = require('react');
+var React = require('react');
+var mui = require('material-ui');
+var ThemeManager = new mui.Styles.ThemeManager();
 
-var Footer = require('./Footer.react');
-var Header = require('./Header.react');
-var MainSection = require('./MainSection.react');
+var FolderSection = require('./FolderSection.react');
+var MailSection = require('./MailSection.react');
 var EnronStore = require('../stores/EnronStore');
 
 var _folder = null;
@@ -10,17 +12,25 @@ var _folder = null;
 function getAppState() {
     console.log("MailApp::getAppState");
     return {
-        folders: EnronStore.getAllFolders(),
+        folders: [{id: "A", text: "A"}, {id: "B", text: "B"}],//EnronStore.getAllFolders(),
         mails: EnronStore.getAllMails(_folder)
     };
 }
 
 var MailApp = React.createClass({
+    childContextTypes: {
+        muiTheme: React.PropTypes.object
+    },
+
+    getChildContext: function() {
+        return {
+            muiTheme: ThemeManager.getCurrentTheme()
+        };
+    },
 
     // public API
     getInitialState: function() {
         console.log("MailApp::getInitialState");
-        _folder = EnronStore.getAllFolders();
 
         // Invariant Violation: must return an object or null...
         return null;
@@ -29,6 +39,10 @@ var MailApp = React.createClass({
     //
     // lifecycle methods
     //
+
+    componentWillMount() {
+        ThemeManager.setTheme(ThemeManager.types.LIGHT);
+    },
 
     componentDidMount: function() {
         console.log("MailApp::componentDidMount");
@@ -46,9 +60,8 @@ var MailApp = React.createClass({
     render: function() {
         return (
             <div>
-                <Header />
-                <MainSection />
-                <Footer />
+                <FolderSection />
+                <MailSection />
             </div>
         );
     },
