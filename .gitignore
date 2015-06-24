@@ -7,3 +7,7 @@ node_modules
 .idea/
 
 *.swp
+
+# generated js
+bundle.js
+bundle.min.js

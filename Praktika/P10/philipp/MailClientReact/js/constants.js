@@ -8,6 +8,8 @@ module.exports = {
         FOLDER_OPEN: null,
         FOLDER_LOAD_ALL: null,
 
-        MAIL_OPEN: null
+        MAIL_OPEN: null,
+        MAIL_MOVE: null,
+        MAIL_DELETE: null
     })
 };

@@ -22,12 +22,24 @@ module.exports = {
     folderRename: function(folder, newname){
         console.log("http::folderRename: " + folder + "->" + newname);
         var query = folder + "?folder=" + newname;
-        $.put('http://localhost:3000/api/mails/' + query);
+        $.ajax({
+            url: 'http://localhost:3000/api/mails/' + query,
+            type: 'PUT',
+            success: function(response) {
+                console.log("http put: " + response);
+            }
+        });
     },
 
     folderDelete: function(folder) {
         console.log("http::folderDelete: " + folder);
-        $.delete('http://localhost:3000/api/mails/' + folder);
+        $.ajax({
+            url: 'http://localhost:3000/api/mails/' + folder,
+            type: 'DELETE',
+            success: function(response) {
+                console.log("http delete: " + response);
+            }
+        });
     },
 
     mailOpen: function(id, cb){
@@ -40,13 +52,25 @@ module.exports = {
 
     mailDelete: function(id){
         console.log("http::mailDelete: " + id);
-        $.delete('http://localhost:3000/mailapi/msg/' + id);
+        $.ajax({
+            url: 'http://localhost:3000/mailapi/msg/' + id,
+            type: 'DELETE',
+            success: function(response) {
+                console.log("http delete: " + response);
+            }
+        });
     },
 
     mailMove: function(id, folder) {
         console.log("http::mailMove: " + id + "->" + folder);
-        $.put('http://localhost:3000/mailapi/msg/' + id +
-              '?folder=' + folder);
+        $.ajax({
+            url: 'http://localhost:3000/mailapi/msg/' + id +
+                 '?folder=' + folder,
+            type: 'PUT',
+            success: function(response) {
+                console.log("http put: " + response);
+            }
+        });
     },
 
     mailCreate: function(folder, sender, recipient, subject) {

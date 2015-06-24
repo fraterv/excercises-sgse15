@@ -59,7 +59,8 @@ var FolderSection = React.createClass({
                         menuItems={this.state.folders}
                         onChange={this._openFolder} />
                <AppBar title={this.state.currentFolder}
-                        onLeftIconButtonTouchTap={this._toggleNav}/>
+                       iconClassNameRight="muidocs-icon-navigation-expand-more"
+                       onLeftIconButtonTouchTap={this._toggleNav}/>
             </div>
         );
     }

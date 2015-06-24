@@ -8,6 +8,13 @@ module.exports = {
         });
     },
 
+    deleteFolder: function(folder) {
+        MailAppDispatcher.dispatch({
+            type:ActionTypes.FOLDER_DELETE,
+            folder: folder
+        });
+    },
+
     openFolder: function(folder) {
         console.log("FolderActions::OpenFolder " + folder);
         MailAppDispatcher.dispatch({

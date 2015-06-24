@@ -13,7 +13,7 @@ var CHANGE_EVENT = 'change';
 
 var _currentMail = {subject:""} // currently selected mail
 var _currentFolder = "" // currently opened folder
-var _folders = {}; // all available folders
+var _folders = []; // all available folders
 var _mails = {}; // all mails of current folder
 
 // exported module
@@ -66,6 +66,7 @@ EnronStore.dispatchToken = MailAppDispatcher.register(
             case ActionTypes.FOLDER_DELETE:
             var folder = action.folder;
             console.log("EnronStoreCB::DeletingFolder " + folder);
+            Http.folderDelete(folder);
             EnronStore.emitChange();
 
             break;
@@ -104,6 +105,23 @@ EnronStore.dispatchToken = MailAppDispatcher.register(
                 console.log("Received mail: " + mail);
                 EnronStore.emitChange();
             });
+
+            break;
+            case ActionTypes.MAIL_DELETE:
+            var mail = action.id;
+            console.log("EnronStoreCB::MailDelete");
+            Http.mailDelete(mail);
+            console.log("Deleted mail: " + mail);
+            EnronStore.emitChange();
+
+            break;
+            case ActionTypes.MAIL_MOVE:
+            var mail = action.id;
+            var folder = action.folder;
+            console.log("EnronStoreCB::MailMove");
+            Http.mailMove(mail, folder);
+            console.log("Moved mail: " + mail);
+            EnronStore.emitChange();
 
             break;
             default:
