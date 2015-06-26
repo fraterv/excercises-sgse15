@@ -8,8 +8,25 @@ var getAllMails = function () {
 
 }
 
+var deleteFolder = function(folder) {
+  var url = 'http://localhost:4000/mailapi/deletefolder/'+folder;
+  console.log("axios::deleteFolder: "+url);
+  return axios.delete(url);
+}
+
+var updateFolderName= function(oldname, newname) {
+  var url = 'http://localhost:4000/mailapi/updfoldername/'+oldname;
+  var para = {folder: newname};
+  console.log("axios::updateFolderName: "+url +newname);
+
+  return axios.put(url,para);
+}
+
+
 var getMailsByFolder = function(folder) {
   var url ='http://localhost:4000/mailapi/shbyfolder/'+folder;
-  console.log("axios: "+ url);
+  console.log("axios::getMailsByFolder: "+ url);
   return axios.get(url);
 }
+
+

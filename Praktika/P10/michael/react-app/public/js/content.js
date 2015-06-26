@@ -7,7 +7,8 @@ var FolderButton = React.createClass({
     getInitialState: function () {
       return {
         folder: [],
-        mailsOfFolder: []
+        mailsOfFolder: [],
+        newNameFolder : ''
       }
     },
 
@@ -20,6 +21,36 @@ var FolderButton = React.createClass({
           folder: resp.data
         });
       });
+    },
+
+  componentWillUpdate: function() {
+      var self = this;
+      getAllMails().then(function (resp) {
+        console.log(resp.data);
+
+        self.setState({
+          folder: resp.data
+        });
+      });
+
+    },
+
+    removeFolder : function (folder,i) {
+      console.log(folder);
+      var self = this;
+      deleteFolder(folder).
+        then(function (resp) {
+          self.setState({folder: resp.data});
+        })
+    },
+
+    renameFolder : function (folder,i) {
+      var self = this;
+      console.log(folder + ", "+ this.state.newNameFolder)
+      updateFolderName(folder, this.state.newNameFolder).
+        then(function(resp) {
+          self.setState({folder: resp.data});
+        })
     },
     mailsByFolder : function(folder,i) {
       console.log(i);
@@ -34,6 +65,10 @@ var FolderButton = React.createClass({
           console.log(response);
         });
     },
+    update: function(e) {
+      this.setState({newNameFolder: e.target.value});
+      console.log(this.state.newNameFolder)
+    },
 
     onFolderChange : function () {
         console.log(this.state.folder)
@@ -44,7 +79,14 @@ var FolderButton = React.createClass({
       var folderButtons = [];
       for (var i=0; i< this.state.folder.length; i++){
         var help = this.state.folder[i];
-        folderButtons.push(<button onClick={this.mailsByFolder.bind(this,help)}>{help}</button>);
+        folderButtons.push(
+                  <div>
+                    <button onClick={this.mailsByFolder.bind(this,help)}>{help}</button>
+                    <button onClick={this.removeFolder.bind(this,help)}>del {help}</button>
+                    <input onChange={this.update}/>
+                    <button onClick={this.renameFolder.bind(this,help)}>rename folder {help}</button>
+                  </div>
+                );
       }
 
       return (
@@ -53,6 +95,36 @@ var FolderButton = React.createClass({
 }
 })
 ;
+
+var MailHeadDiv = React.createClass({
+    getInitialState: function () {
+      return {
+        mailContent : ''
+      }
+    },
+
+  update : function () {
+    this.setState({mailContent : this.props.mail.text});
+    console.log("blub"+this.state.mailContent);
+  },
+  render: function() {
+    return (
+      <div>
+        <div>
+          <label>{this.props.mail.sender}</label>
+          <label>{this.props.mail.subject} </label>
+          <label>{this.props.mail.date} </label>
+        </div>
+        <button onClick={this.update}>show</button>
+        <input type="text" value="other Folder" />
+        <button>move</button>
+        <button>remove</button>
+
+        <div> {this.state.mailContent} </div>
+      </div>
+    );
+  }
+});
 
 var MailsFromFolderDiv = React.createClass({
 
@@ -63,7 +135,7 @@ var MailsFromFolderDiv = React.createClass({
       var folderMails = [];
       for (var i=0; i< this.props.mailHead.length; i++) {
         var help = this.props.mailHead[i];
-        folderMails.push(<div> <label> {help.sender}</label> <label> {help.subject}</label> <label>{help.date}</label></div>);
+        folderMails.push(<MailHeadDiv mail={this.props.mailHead[i]}/>);
       }
     return (
       <div>
