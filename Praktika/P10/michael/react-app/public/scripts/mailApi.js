@@ -7,3 +7,9 @@ var getAllMails = function () {
   return axios.get(url);
 
 }
+
+var getMailsByFolder = function(folder) {
+  var url ='http://localhost:4000/mailapi/shbyfolder/'+folder;
+  console.log("axios: "+ url);
+  return axios.get(url);
+}

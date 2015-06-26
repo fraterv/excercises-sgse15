@@ -10,32 +10,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
     <script src="bower_components/axios/dist/axios.min.js"></script>
     <script src="scripts/mailApi.js"></script>
+    <script type="text/jsx" src="js/content.js"></script>
   </head>
   <body>
 
     <div id="content"></div>
-    <!-- <script type="text/jsx;harmony=true" src="scripts/example.js"></script> -->
-    <script type="text/jsx">
 
-    var Folders = React.createClass({
-
-      componentDidMount: function () {
-        getAllMails().then( function (resp) {
-          console.log(resp.data);
-        });
-      },
-      render: function() {
-        return (
-          <h1>Folders</h1>
-
-        );
-      }
-    });
-
-    React.render(
-    <Folders />,
-    document.getElementById('content')
-  );
-    </script>
   </body>
 </html>
