@@ -1,0 +1,122 @@
+<head>
+    <title>MeteorMails</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Rename">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-right">
+                    <li class="dropdown">
+                        <a class="btn btn-default btn-sm dropdown-toggle"
+                           data-toggle="dropdown" type="button"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            {{> currentfolder}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {{#each folders}}
+                                {{> folder}}
+                            {{/each}}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        <div main class="panel panel-default">
+            <div class="panel-heading">
+                <h2>{{> currentfolder}}</h2>
+            </div>
+            <div class="panel-body">
+                <nav>
+                    <ul id="ul" class="pager">
+                        <li class="previous">
+                            <a href="#" role="button" id="all_mails">
+                                Mails
+                            </a>
+                        </li>
+                        <li class="next">
+                            <a href="#" role="button" id="new_mail">
+                                New Mails
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                {{#if mailsView}}
+                    <div>
+                        <ul class="list-group">
+                            {{#each mails}}
+                            {{> mail}}
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{else}}
+                    <form class="form">
+                        <div class="form-group">
+                            <span id="addonTo" class="input-group-addon">To</span>
+                            <input type="text" class="form-control" placeholder="Email"
+                                   aria-describedby="addonTo">
+                            <span id="addonFrom" class="input-group-addon">From</span>
+                            <input type="text" class="form-control" placeholder="Email"
+                                   aria-describedby="addonFrom">
+                            <span id="addonSj" class="input-group-addon">Subject</span>
+                            <input type="text" class="form-control" placeholder="Subject"
+                                   aria-describedby="addonSj">
+                            <span id="addonText" class="input-group-addon">Text</span>
+                            <input type="text" class="form-control" placeholder="Text"
+                                   aria-describedby="addonText">
+                            <input type="submit" value="Create" class="btn btn-default">
+                        </div>
+                    </form>
+                {{/if}}
+            </div>
+        </div>
+    <footer>
+
+    </footer>
+</body>
+
+<template name="content">
+</template>
+
+<template name="folder">
+    <li role="button"><a>{{this}}</a></li>
+</template>
+
+<template name="currentfolder">
+    {{name}}
+</template>
+
+<template name="mail">
+    <li class="mail list-group-item" id="{{_id._str}}">
+        <h4 class="list-group-item-heading">{{subject}}</h4>
+        <p class="list-group-item-text">{{sender}}</p>
+        {{#if selected _id}}
+        <div>
+            {{> mailSelected this}}
+        </div>
+        {{/if}}
+    </li>
+</template>
+
+<template name="mailSelected">
+    <p></p>
+    <div class="well">
+        {{text}}
+    </div>
+    <input class='inputMoveMail'
+           type='text' placeholder='New Folder'>
+    <button type="button" class="btn btn-default btnMailDelete">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        Delete
+    </button>
+</template>
