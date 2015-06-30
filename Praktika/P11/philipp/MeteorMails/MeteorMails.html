@@ -4,16 +4,30 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse">
+    {{> navbar folders=folders}}
+    <div main class="panel panel-default">
+        <div class="panel-heading">
+            <h2>{{> currentfolder}}</h2>
+        </div>
+        {{> panel mails=mails}}
+    </div>
+    <footer>
+
+    </footer>
+</body>
+
+<template name="navbar">
+    <nav class="navbar navbar-default navbar-static-top">
         <div class="container-fluid">
             <div class="collapse navbar-collapse">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Rename">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-                <ul class="nav navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><button type="button"
+                                class="btn btn-default btnDelFolder">
+                            Delete Folder
+                        </button>
+                    </li>
+                    <li><input class="folderRename inline"
+                               type="text" placeholder="Rename"></li>
                     <li class="dropdown">
                         <a class="btn btn-default btn-sm dropdown-toggle"
                            data-toggle="dropdown" type="button"
@@ -24,7 +38,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             {{#each folders}}
-                                {{> folder}}
+                            {{> folder}}
                             {{/each}}
                         </ul>
                     </li>
@@ -32,58 +46,37 @@
             </div>
         </div>
     </nav>
-        <div main class="panel panel-default">
-            <div class="panel-heading">
-                <h2>{{> currentfolder}}</h2>
-            </div>
-            <div class="panel-body">
-                <nav>
-                    <ul id="ul" class="pager">
-                        <li class="previous">
-                            <a href="#" role="button" id="all_mails">
-                                Mails
-                            </a>
-                        </li>
-                        <li class="next">
-                            <a href="#" role="button" id="new_mail">
-                                New Mails
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                {{#if mailsView}}
-                    <div>
-                        <ul class="list-group">
-                            {{#each mails}}
-                            {{> mail}}
-                            {{/each}}
-                        </ul>
-                    </div>
-                {{else}}
-                    <form class="form">
-                        <div class="form-group">
-                            <span id="addonTo" class="input-group-addon">To</span>
-                            <input type="text" class="form-control" placeholder="Email"
-                                   aria-describedby="addonTo">
-                            <span id="addonFrom" class="input-group-addon">From</span>
-                            <input type="text" class="form-control" placeholder="Email"
-                                   aria-describedby="addonFrom">
-                            <span id="addonSj" class="input-group-addon">Subject</span>
-                            <input type="text" class="form-control" placeholder="Subject"
-                                   aria-describedby="addonSj">
-                            <span id="addonText" class="input-group-addon">Text</span>
-                            <input type="text" class="form-control" placeholder="Text"
-                                   aria-describedby="addonText">
-                            <input type="submit" value="Create" class="btn btn-default">
-                        </div>
-                    </form>
-                {{/if}}
-            </div>
-        </div>
-    <footer>
+</template>
 
-    </footer>
-</body>
+<template name="panel">
+    <div class="panel-body">
+        <nav>
+            <ul id="ul" class="pager">
+                <li class="previous">
+                    <a href="#" role="button" id="all_mails">
+                        Mails
+                    </a>
+                </li>
+                <li class="next">
+                    <a href="#" role="button" id="new_mail">
+                        New Mails
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {{#if mailsView}}
+        <div>
+            <ul class="list-group">
+                {{#each mails}}
+                {{> mail}}
+                {{/each}}
+            </ul>
+        </div>
+        {{else}}
+        {{> addMailForm}}
+        {{/if}}
+    </div>
+</template>
 
 <template name="content">
 </template>
@@ -100,6 +93,7 @@
     <li class="mail list-group-item" id="{{_id._str}}">
         <h4 class="list-group-item-heading">{{subject}}</h4>
         <p class="list-group-item-text">{{sender}}</p>
+        <p class="list-group-item-text">{{_id._str}}</p>
         {{#if selected _id}}
         <div>
             {{> mailSelected this}}
@@ -119,4 +113,24 @@
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         Delete
     </button>
+</template>
+
+<template name="addMailForm">
+    <form class="form">
+        <div class="form-group">
+            <span id="addonTo" class="input-group-addon">To</span>
+            <input type="text" class="form-control" placeholder="Email"
+                   name="to" aria-describedby="addonTo">
+            <span id="addonFrom" class="input-group-addon">From</span>
+            <input type="text" class="form-control" placeholder="Email"
+                   name="from" aria-describedby="addonFrom">
+            <span id="addonSj" class="input-group-addon">Subject</span>
+            <input type="text" class="form-control" placeholder="Subject"
+                   name="subject" aria-describedby="addonSj">
+            <span id="addonText" class="input-group-addon">Text</span>
+            <input type="text" class="form-control" placeholder="Text"
+                   name="text" aria-describedby="addonText">
+            <input type="submit" value="Create" class="btn btn-default">
+        </div>
+    </form>
 </template>
